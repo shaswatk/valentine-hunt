@@ -1,0 +1,558 @@
+{
+  "events": [
+    {
+      "id": "26c8994c-afa0-4508-b364-4c969d6bd1e4",
+      "deviceId": "e08f82bd-ba52-42b3-ab6d-b41f3771c7bd",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T14:34:48.366Z",
+      "meta": {}
+    },
+    {
+      "id": "938aa99b-3c38-4afb-9e31-d3fef9c10c56",
+      "deviceId": "e08f82bd-ba52-42b3-ab6d-b41f3771c7bd",
+      "event": "puzzle_solved",
+      "day": 1,
+      "timestamp": "2026-02-06T14:38:11.035Z",
+      "meta": {
+        "day": 1
+      }
+    },
+    {
+      "id": "a885269b-663b-4219-a945-ef8c0a4c23a7",
+      "deviceId": "e08f82bd-ba52-42b3-ab6d-b41f3771c7bd",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T14:38:53.073Z",
+      "meta": {}
+    },
+    {
+      "id": "276f7817-4832-4632-83aa-5fba428e5b3d",
+      "deviceId": "e08f82bd-ba52-42b3-ab6d-b41f3771c7bd",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T14:48:36.168Z",
+      "meta": {}
+    },
+    {
+      "id": "e684d58f-8932-4fa1-a21d-0d1a5d686321",
+      "deviceId": "e08f82bd-ba52-42b3-ab6d-b41f3771c7bd",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T14:50:05.017Z",
+      "meta": {}
+    },
+    {
+      "id": "9f632a90-c6aa-4efe-b86d-aad25bdef030",
+      "deviceId": "e08f82bd-ba52-42b3-ab6d-b41f3771c7bd",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T14:54:20.024Z",
+      "meta": {}
+    },
+    {
+      "id": "aaa8a570-49ac-4ad8-a6b5-43de0bc68f1a",
+      "deviceId": "e08f82bd-ba52-42b3-ab6d-b41f3771c7bd",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T14:54:21.243Z",
+      "meta": {}
+    },
+    {
+      "id": "e3ba262f-8f5a-4297-8bfd-140494cb6b76",
+      "deviceId": "e08f82bd-ba52-42b3-ab6d-b41f3771c7bd",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T14:54:22.517Z",
+      "meta": {}
+    },
+    {
+      "id": "a19eb9da-b901-4907-bfdc-7dcd81f7bf11",
+      "deviceId": "e08f82bd-ba52-42b3-ab6d-b41f3771c7bd",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T14:55:45.208Z",
+      "meta": {}
+    },
+    {
+      "id": "9ee7d79a-77de-43cd-9cdc-6287931e57f8",
+      "deviceId": "e08f82bd-ba52-42b3-ab6d-b41f3771c7bd",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T14:55:47.064Z",
+      "meta": {}
+    },
+    {
+      "id": "876d2317-136d-4b4d-a865-83056929185d",
+      "deviceId": "e08f82bd-ba52-42b3-ab6d-b41f3771c7bd",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T14:55:47.788Z",
+      "meta": {}
+    },
+    {
+      "id": "e6440abd-ac73-4e2f-b48c-f131e9751178",
+      "deviceId": "e08f82bd-ba52-42b3-ab6d-b41f3771c7bd",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T14:55:48.309Z",
+      "meta": {}
+    },
+    {
+      "id": "f7b29441-b22b-4093-8792-d53f57dda11b",
+      "deviceId": "e08f82bd-ba52-42b3-ab6d-b41f3771c7bd",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T14:55:48.827Z",
+      "meta": {}
+    },
+    {
+      "id": "1f7789b5-c80f-4310-9853-1a12e07e046a",
+      "deviceId": "e08f82bd-ba52-42b3-ab6d-b41f3771c7bd",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T14:59:53.495Z",
+      "meta": {}
+    },
+    {
+      "id": "4f4c9266-7850-46c4-a951-25cf30426b9c",
+      "deviceId": "e08f82bd-ba52-42b3-ab6d-b41f3771c7bd",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T15:04:04.765Z",
+      "meta": {}
+    },
+    {
+      "id": "3b5ac38c-ab1f-4b3b-9e2b-c1ec656ba694",
+      "deviceId": "e08f82bd-ba52-42b3-ab6d-b41f3771c7bd",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T15:04:05.498Z",
+      "meta": {}
+    },
+    {
+      "id": "fa43d643-c54b-400e-a1f9-43ff86283808",
+      "deviceId": "e08f82bd-ba52-42b3-ab6d-b41f3771c7bd",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T15:04:06.450Z",
+      "meta": {}
+    },
+    {
+      "id": "eb7ec94a-41a6-4ee2-ab05-903b57a89363",
+      "deviceId": "e08f82bd-ba52-42b3-ab6d-b41f3771c7bd",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T15:04:07.000Z",
+      "meta": {}
+    },
+    {
+      "id": "16a958f1-ef77-4261-ba97-3d350731a8e1",
+      "deviceId": "e08f82bd-ba52-42b3-ab6d-b41f3771c7bd",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T15:04:52.196Z",
+      "meta": {}
+    },
+    {
+      "id": "704b024b-8901-4845-8dae-ebf0fdee9f37",
+      "deviceId": "e08f82bd-ba52-42b3-ab6d-b41f3771c7bd",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T15:14:41.585Z",
+      "meta": {}
+    },
+    {
+      "id": "9b4455bd-6d3f-4ec1-973e-4b1cffaf0f15",
+      "deviceId": "e08f82bd-ba52-42b3-ab6d-b41f3771c7bd",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T15:19:05.862Z",
+      "meta": {}
+    },
+    {
+      "id": "7da76ca8-1e6b-401a-b4a3-ee0f820ed3b8",
+      "deviceId": "e08f82bd-ba52-42b3-ab6d-b41f3771c7bd",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T15:19:07.197Z",
+      "meta": {}
+    },
+    {
+      "id": "af5baddd-58d5-47ea-a29c-1ed60d4f06f2",
+      "deviceId": "e08f82bd-ba52-42b3-ab6d-b41f3771c7bd",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T15:19:16.169Z",
+      "meta": {}
+    },
+    {
+      "id": "87539f95-fca2-4f2e-9743-26bf6ac4892b",
+      "deviceId": "e08f82bd-ba52-42b3-ab6d-b41f3771c7bd",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T15:19:16.912Z",
+      "meta": {}
+    },
+    {
+      "id": "78d07cdc-fe5f-4bb4-a4ab-54edfcc84a75",
+      "deviceId": "e08f82bd-ba52-42b3-ab6d-b41f3771c7bd",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T15:20:32.848Z",
+      "meta": {}
+    },
+    {
+      "id": "2d0114b3-20a7-43b5-b179-53a9621b706c",
+      "deviceId": "e08f82bd-ba52-42b3-ab6d-b41f3771c7bd",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T15:23:33.795Z",
+      "meta": {}
+    },
+    {
+      "id": "9bf008dc-ada9-4159-b282-94ecbc62c54f",
+      "deviceId": "e08f82bd-ba52-42b3-ab6d-b41f3771c7bd",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T15:23:39.949Z",
+      "meta": {}
+    },
+    {
+      "id": "bd653520-eb4f-4799-958d-6177fabc5ecb",
+      "deviceId": "e08f82bd-ba52-42b3-ab6d-b41f3771c7bd",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T15:23:55.584Z",
+      "meta": {}
+    },
+    {
+      "id": "43176c6d-4158-4d09-9791-0f0c387f27f0",
+      "deviceId": "e08f82bd-ba52-42b3-ab6d-b41f3771c7bd",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T15:24:58.662Z",
+      "meta": {}
+    },
+    {
+      "id": "c565345d-ec3f-4e1a-a03b-89bc65c54011",
+      "deviceId": "e08f82bd-ba52-42b3-ab6d-b41f3771c7bd",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T15:32:00.710Z",
+      "meta": {}
+    },
+    {
+      "id": "01bc5502-6c05-4365-86a8-35b77e9a01d2",
+      "deviceId": "e08f82bd-ba52-42b3-ab6d-b41f3771c7bd",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T15:42:43.624Z",
+      "meta": {}
+    },
+    {
+      "id": "5056c7b5-a8ec-4504-b3c8-e7cb10dc5afc",
+      "deviceId": "e08f82bd-ba52-42b3-ab6d-b41f3771c7bd",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T15:44:35.333Z",
+      "meta": {}
+    },
+    {
+      "id": "554685af-3a75-4f7c-b7fe-6f087ba9ee3b",
+      "deviceId": "e08f82bd-ba52-42b3-ab6d-b41f3771c7bd",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T15:48:00.366Z",
+      "meta": {}
+    },
+    {
+      "id": "3f534e60-c907-4dcd-bc3d-71862cba330a",
+      "deviceId": "e08f82bd-ba52-42b3-ab6d-b41f3771c7bd",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T15:49:40.402Z",
+      "meta": {}
+    },
+    {
+      "id": "d566d699-d4c7-4e01-b41a-24201ef6a8e0",
+      "deviceId": "e08f82bd-ba52-42b3-ab6d-b41f3771c7bd",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T15:49:43.293Z",
+      "meta": {}
+    },
+    {
+      "id": "6cc12862-e216-4d2a-abeb-9a1c50878699",
+      "deviceId": "8018e492-97f4-4138-9650-151a94573b09",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T15:50:18.564Z",
+      "meta": {}
+    },
+    {
+      "id": "a0f5ab7d-1b57-4fbc-bbf1-1c56bedb4cb0",
+      "deviceId": "8018e492-97f4-4138-9650-151a94573b09",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T15:50:19.903Z",
+      "meta": {}
+    },
+    {
+      "id": "9f08d018-889d-4922-999f-3800788b879f",
+      "deviceId": "8018e492-97f4-4138-9650-151a94573b09",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T16:30:08.372Z",
+      "meta": {}
+    },
+    {
+      "id": "91662348-1fc7-486c-8f3f-f1a604cbb1cc",
+      "deviceId": "8018e492-97f4-4138-9650-151a94573b09",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T16:30:09.218Z",
+      "meta": {}
+    },
+    {
+      "id": "19cc1071-1ecc-408f-99ca-949eba7c4b9e",
+      "deviceId": "8018e492-97f4-4138-9650-151a94573b09",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T17:13:01.020Z",
+      "meta": {}
+    },
+    {
+      "id": "f578cef8-165b-45f4-90d9-adfe42be7bc7",
+      "deviceId": "8018e492-97f4-4138-9650-151a94573b09",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T17:22:45.962Z",
+      "meta": {}
+    },
+    {
+      "id": "ab9f4717-8b83-4398-b8b5-1e92cf5e1eca",
+      "deviceId": "8018e492-97f4-4138-9650-151a94573b09",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T17:24:14.781Z",
+      "meta": {}
+    },
+    {
+      "id": "89c768aa-1f71-4cce-8139-48b6c7df73db",
+      "deviceId": "8018e492-97f4-4138-9650-151a94573b09",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T17:27:33.584Z",
+      "meta": {}
+    },
+    {
+      "id": "dd85f909-b7e8-4387-ad7a-27a001bda2b3",
+      "deviceId": "8018e492-97f4-4138-9650-151a94573b09",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T17:29:21.240Z",
+      "meta": {}
+    },
+    {
+      "id": "74aee4ea-9b48-4152-93c4-190a74127c72",
+      "deviceId": "8018e492-97f4-4138-9650-151a94573b09",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T17:30:59.678Z",
+      "meta": {}
+    },
+    {
+      "id": "c6d181d9-eba3-4065-bf10-f07ee69a6182",
+      "deviceId": "8018e492-97f4-4138-9650-151a94573b09",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T17:31:00.697Z",
+      "meta": {}
+    },
+    {
+      "id": "87ea69f7-ebfb-4dea-bfc3-72d413b15d24",
+      "deviceId": "8018e492-97f4-4138-9650-151a94573b09",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T17:32:00.029Z",
+      "meta": {}
+    },
+    {
+      "id": "ddbc1d17-7bd8-4a11-baab-231551d98f87",
+      "deviceId": "8018e492-97f4-4138-9650-151a94573b09",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T17:32:22.691Z",
+      "meta": {}
+    },
+    {
+      "id": "f3fcd2f7-378d-44cb-88a7-0f79d9ccc60d",
+      "deviceId": "8018e492-97f4-4138-9650-151a94573b09",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T17:34:30.652Z",
+      "meta": {}
+    },
+    {
+      "id": "4c162d6d-d344-42b0-8ea9-7928ae8f8482",
+      "deviceId": "8018e492-97f4-4138-9650-151a94573b09",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T17:36:26.476Z",
+      "meta": {}
+    },
+    {
+      "id": "a8721341-235b-4aab-82b0-4caade256f04",
+      "deviceId": "8018e492-97f4-4138-9650-151a94573b09",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T17:37:27.602Z",
+      "meta": {}
+    },
+    {
+      "id": "bb169761-fe63-4d1b-97d6-647156358e31",
+      "deviceId": "8018e492-97f4-4138-9650-151a94573b09",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T17:38:26.994Z",
+      "meta": {}
+    },
+    {
+      "id": "94ba8de1-5aa7-43e2-8d5b-3a75aaa76687",
+      "deviceId": "8018e492-97f4-4138-9650-151a94573b09",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T17:38:27.844Z",
+      "meta": {}
+    },
+    {
+      "id": "1d7c638f-e251-4ed2-80c8-1fe33e8310d4",
+      "deviceId": "8018e492-97f4-4138-9650-151a94573b09",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T17:38:41.636Z",
+      "meta": {}
+    },
+    {
+      "id": "354b1a15-449b-4f4e-80a8-32f000526f34",
+      "deviceId": "8018e492-97f4-4138-9650-151a94573b09",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T17:41:59.514Z",
+      "meta": {}
+    },
+    {
+      "id": "0f454471-241d-4d34-920a-ac802b3f80ac",
+      "deviceId": "8018e492-97f4-4138-9650-151a94573b09",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T17:43:59.908Z",
+      "meta": {}
+    },
+    {
+      "id": "190c1904-ec7a-41bd-8678-fa460f4ba893",
+      "deviceId": "8018e492-97f4-4138-9650-151a94573b09",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T17:46:52.667Z",
+      "meta": {}
+    },
+    {
+      "id": "f5edfe84-c63d-4828-a552-fe17a283bb5d",
+      "deviceId": "8018e492-97f4-4138-9650-151a94573b09",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T17:48:09.028Z",
+      "meta": {}
+    },
+    {
+      "id": "64fce1a8-d0f8-4ed7-b327-547e11653c4f",
+      "deviceId": "8018e492-97f4-4138-9650-151a94573b09",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T17:49:38.621Z",
+      "meta": {}
+    },
+    {
+      "id": "a49fc795-80cf-4c63-b3e5-437e03215916",
+      "deviceId": "8018e492-97f4-4138-9650-151a94573b09",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T17:54:46.135Z",
+      "meta": {}
+    },
+    {
+      "id": "4d0f0f97-b31e-41ab-a435-755eecc2be4a",
+      "deviceId": "8018e492-97f4-4138-9650-151a94573b09",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T17:58:56.964Z",
+      "meta": {}
+    },
+    {
+      "id": "ed8a209d-185a-41fa-8af5-ce84fa1c1c26",
+      "deviceId": "8018e492-97f4-4138-9650-151a94573b09",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T17:59:28.669Z",
+      "meta": {}
+    },
+    {
+      "id": "73507951-52ed-4604-bfdd-7428fe34b226",
+      "deviceId": "8018e492-97f4-4138-9650-151a94573b09",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T18:02:28.751Z",
+      "meta": {}
+    },
+    {
+      "id": "87925ee2-2c28-43c7-a610-9e9f30bb078a",
+      "deviceId": "8018e492-97f4-4138-9650-151a94573b09",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T18:04:22.550Z",
+      "meta": {}
+    },
+    {
+      "id": "0097e289-7084-4ce5-b500-932856136c2d",
+      "deviceId": "8018e492-97f4-4138-9650-151a94573b09",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T18:13:23.192Z",
+      "meta": {}
+    },
+    {
+      "id": "081dad5a-6713-4f52-ad24-04b33440f915",
+      "deviceId": "8018e492-97f4-4138-9650-151a94573b09",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T18:15:58.494Z",
+      "meta": {}
+    },
+    {
+      "id": "e558eee4-563e-40b3-88f7-73089ece5825",
+      "deviceId": "8018e492-97f4-4138-9650-151a94573b09",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T18:18:38.733Z",
+      "meta": {}
+    },
+    {
+      "id": "9ef63393-1438-44bb-ab9b-1d04ac57d0c4",
+      "deviceId": "8018e492-97f4-4138-9650-151a94573b09",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T18:24:00.324Z",
+      "meta": {}
+    },
+    {
+      "id": "3b70cb4f-3b78-40c1-9c0b-419bdfe6206c",
+      "deviceId": "8018e492-97f4-4138-9650-151a94573b09",
+      "event": "page_boot",
+      "day": null,
+      "timestamp": "2026-02-06T18:36:41.214Z",
+      "meta": {}
+    }
+  ]
+}

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Golden Threads | Valentine's Week Hunt</title>
+    <meta
+      name="description"
+      content="Romantic Valentine's Week puzzle hunt. Eight nightly drops from 7–14 Feb with luminous yellow keepsakes."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="night-sky" aria-hidden="true"></div>
+    <div class="page-frame">
+      <header class="hero">
+        <p class="pill">Valentine's Week · Feb 7–14</p>
+        <h1 class="hero-title">
+          Golden Threads
+          <span>Midnight Hunt</span>
+        </h1>
+        <p class="hero-lede">
+          A quiet celebration for two puzzle-lovers. One fresh clue pack drops at 12:00 AM IST each night. Read the keepsakes, solve the
+          cipher, and watch the countdown to tomorrow's secret.
+        </p>
+        <div id="headline-timer" class="timer compact hidden">
+          <p>Next puzzle unlocks in</p>
+          <span id="headline-timer-text">--d --h --m --s</span>
+        </div>
+      </header>
+
+      <main class="grid">
+        <section class="panel highlight glow">
+          <div class="highlight-aurora" aria-hidden="true"></div>
+          <div class="highlight-inner">
+            <p class="pill pill-soft">Tonight's vignette</p>
+            <h2>Cryptic overture</h2>
+            <p>
+              The week opens with a whispered riddle: a tabla syllable mingles with Rose Day hues. Crack the charade to set the tone for every
+              clue that follows.
+            </p>
+            <ul class="highlight-list">
+              <li>
+                <span class="label">Drop time</span>
+                <span class="value">12:00 AM IST</span>
+              </li>
+              <li>
+                <span class="label">Tonight's vibe</span>
+                <span class="value">Rose-glow cryptic</span>
+              </li>
+              <li>
+                <span class="label">What's next</span>
+                <span class="value">Unlock Day 1's love letter</span>
+              </li>
+            </ul>
+            <div class="heart-cluster" aria-hidden="true">
+              <span>♡</span>
+              <span class="heart-gold">♡</span>
+              <span>♡</span>
+            </div>
+          </div>
+          <div id="highlight-locked" class="highlight-locked hidden">
+            <p id="highlight-locked-message">This vignette unlocks with the first clue.</p>
+            <div id="highlight-countdown" class="locked-countdown"></div>
+          </div>
+        </section>
+
+        <section id="puzzle-panel" class="panel">
+          <div class="panel-head">
+            <p class="pill" id="puzzle-pill"></p>
+            <h2 id="puzzle-title"></h2>
+            <p id="puzzle-hero" class="lede"></p>
+          </div>
+
+          <div class="instructions">
+            <h3>How to play</h3>
+            <ol id="instruction-list"></ol>
+          </div>
+
+          <div>
+            <div class="clue-grid" id="clue-grid"></div>
+            <p id="puzzle-footer" class="note faint"></p>
+          </div>
+
+          <form id="answer-form" class="answer-stack">
+            <label for="answer-input">Secret word</label>
+            <div class="answer-row">
+              <input id="answer-input" type="text" placeholder="Type your final answer" autocomplete="off" />
+              <button type="submit" class="cta">Submit</button>
+            </div>
+            <p id="answer-feedback" class="note"></p>
+          </form>
+
+          <div id="solved-panel" class="solved hidden">
+            <p class="pill pill-soft">Solved</p>
+            <h3>See you at the next drop</h3>
+            <p>The next envelope unlocks at midnight. Stay ready—solving faster means more time to prepare romantic surprises.</p>
+            <div class="timer secondary">
+              <p>Next puzzle unlocks in</p>
+              <span id="timer-text">--d --h --m --s</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel schedule glow-soft">
+          <div class="panel-head">
+            <p class="pill pill-soft">Valentine cadence</p>
+            <h2>8 drops · 8 vibes</h2>
+            <p>A new clue pack arrives every night at 12:00 AM IST. Day 0 is live now—everything else waits patiently behind sealed wax.</p>
+          </div>
+          <div id="schedule-grid" class="schedule-grid"></div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <p>Need to reset the device or rotate passwords? Clear the local log in your browser console via <code>window.valentineLog.clear()</code>.</p>
+        <p class="note faint">Tracking is private to you—events are stored locally for debugging and never leave this browser.</p>
+      </footer>
+    </div>
+
+    <div id="congrats-modal" class="modal-overlay hidden">
+      <div class="modal-card">
+        <button id="modal-close" class="modal-close" aria-label="Close popup">×</button>
+        <p class="pill pill-soft modal-pill">Solved</p>
+        <h3 id="modal-title">Beautifully done!</h3>
+        <p id="modal-body">
+          The next envelope will glow at midnight. Sit tight and savor the afterglow.
+        </p>
+        <form id="prize-form" class="prize-form hidden">
+          <label for="prize-time">When should we drop off your Rose Day surprise?</label>
+          <input id="prize-time" name="prize-time" type="time" required />
+          <div class="radio-row">
+            <label>Where should it arrive?</label>
+            <label><input type="radio" name="prize-location" value="home" required /> Home</label>
+            <label><input type="radio" name="prize-location" value="work" required /> Work</label>
+          </div>
+          <button id="prize-submit" type="submit" class="cta">Send the surprise</button>
+        </form>
+        <button id="modal-confirm" class="cta modal-confirm">Can't wait</button>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
