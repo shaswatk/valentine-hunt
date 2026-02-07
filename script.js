@@ -92,7 +92,7 @@ const dayOnePuzzle = {
       time: "Cryptic clue",
       location: "Length: 6 letters",
       description:
-        '“Princess joy graces the Rose Day soiree when tabla beat picks up red–pink–white tint”',
+        '“Princess Joy graces the Rose Day soiree when tabla beat picks up red–pink–white tint”',
     },
   ],
   footer: "",
