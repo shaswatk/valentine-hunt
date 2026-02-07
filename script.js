@@ -5,7 +5,6 @@ const STORAGE_KEYS = {
 };
 const PROGRESS_KEY = "golden_threads_progress";
 const STAGE_PROGRESS_KEY = "golden_threads_stage_progress";
-const API_BASE = window.VALENTINE_API_BASE || "http://localhost:4000";
 
 const normalizeAnswerValue = (value) =>
   value ? value.trim().replace(/\s+/g, "").toUpperCase() : "";
@@ -311,22 +310,6 @@ const logEvent = (event, payload = {}) => {
       window.valentineLog = undefined;
     },
   };
-  sendEventToServer(entry);
-};
-
-const sendEventToServer = (entry) => {
-  if (!API_BASE) return;
-  try {
-    fetch(`${API_BASE}/api/puzzle-events`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(entry),
-    }).catch((error) => {
-      console.warn("Unable to send puzzle event", error);
-    });
-  } catch (error) {
-    console.warn("Unable to send puzzle event", error);
-  }
 };
 
 const puzzleSolved = () => hasSolvedDay(CURRENT_DAY);
@@ -688,28 +671,11 @@ answerForm.addEventListener("submit", (event) => {
   }
 });
 
-const syncProgressFromServer = async () => {
-  if (!API_BASE) return;
-  try {
-    const response = await fetch(`${API_BASE}/api/puzzle-progress?deviceId=${DEVICE_ID}`);
-    if (!response.ok) return;
-    const data = await response.json();
-    if (Array.isArray(data.solvedDays)) {
-      persistSolvedDays([...solvedDaysState, ...data.solvedDays]);
-    }
-    renderSchedule();
-    checkSolvedState();
-  } catch (error) {
-    console.warn("Unable to sync puzzle progress", error);
-  }
-};
-
 const boot = () => {
   logEvent("page_boot");
   renderPuzzle();
   renderSchedule();
   checkSolvedState();
-  syncProgressFromServer();
 };
 
 boot();
