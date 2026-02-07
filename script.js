@@ -1,21 +1,126 @@
-const ANSWER = "TARANG";
 const STORAGE_KEYS = {
   solved: "golden_threads_day1_solved",
   log: "golden_threads_log",
   device: "golden_threads_device_id",
 };
 const PROGRESS_KEY = "golden_threads_progress";
+const STAGE_PROGRESS_KEY = "golden_threads_stage_progress";
 const API_BASE = window.VALENTINE_API_BASE || "http://localhost:4000";
-const CURRENT_DAY = 0;
 
 const normalizeAnswerValue = (value) =>
   value ? value.trim().replace(/\s+/g, "").toUpperCase() : "";
-const NORMALIZED_ANSWER = normalizeAnswerValue(ANSWER);
+
+const puzzles = {
+  0: {
+    label: "Day 0 · Rose Day",
+    title: "Rose Day Cryptic",
+    hero:
+      "Your opening clue is a charade. Split the sentence into definition plus wordplay and you'll unlock the word that kicks off Valentine's week.",
+    instructions: [
+      "In cryptic clues, one half usually defines the answer while the other half explains how to build it.",
+      "Look for familiar sounds (like tabla bols) and Rose Day imagery to spot the building blocks you need.",
+    ],
+    clues: [
+      {
+        time: "Cryptic clue",
+        location: "Length: 6 letters",
+        description:
+          "“Princess Joy graces the Rose Day soiree when tabla beat picks up red–pink–white tint”",
+      },
+    ],
+    footer: "The first crimson keepsake waits just beyond this charade.",
+    vignette: {
+      pill: "Tonight's vignette",
+      title: "Cryptic overture",
+      description:
+        "The week opens with a whispered riddle: a tabla syllable mingles with Rose Day hues. Crack the charade to set the tone for every clue that follows.",
+      details: {
+        drop: "12:00 AM IST",
+        vibe: "Rose-glow cryptic",
+        next: "Unlock Day 1's letter",
+      },
+    },
+    stages: [
+      {
+        id: "rose-day-final",
+        label: "Secret word",
+        placeholder: "Type your final answer",
+        buttonText: "Submit",
+        answers: ["TARANG"],
+        successText: "Perfect! Countdown unlocked below.",
+        failureText: "Not the word we're chasing. Reorder the letters and retry.",
+      },
+    ],
+  },
+  1: {
+    label: "Day 1 · Propose Day",
+    title: "Double keepsake",
+    hero:
+      "Things are getting harder now. Two separate clues guard tonight's drop—enter each answer in order to advance.",
+    instructions: [
+      "Start with the traveler couplet to uncover the eight-digit debt ledger.",
+      "Turn to the dice proclamation and find the sacred site tied to the very first roll.",
+      "Submit each answer in sequence. Unlock both clues to trigger the countdown to Day 2.",
+    ],
+    clues: [
+      {
+        time: "Clue 1",
+        location: "Traveler's ledger",
+        description: `I am not the only traveler
+Who has not repaid his debt.`,
+        hint: "Lovely lyrics start a lovely song.",
+      },
+      {
+        time: "Clue 2",
+        location: "Final roll",
+        description:
+          "We have reached the final roll of the dice. The answer to this clue is in the first roll of the dice.",
+      },
+    ],
+    footer: "Crack both answers to unlock Day 2's envelope.",
+    vignette: {
+      pill: "Tonight's vignette",
+      title: "Dual confession",
+      description: "Things are getting harder now. We have two clues to solve today.",
+      details: {
+        drop: "12:00 AM IST",
+        vibe: "Traveler's oath & dice omen",
+        next: "Submit both answers to reach Day 2",
+      },
+    },
+    prize: {
+      link: "https://www.youtube.com/watch?v=KtlgYxa6BMU",
+      label: "Play the secret song",
+      title: "Your midnight serenade unlocked",
+      body: "Tonight's prize is the track we saved for you. Press play and let it loop while you plan Day 2.",
+    },
+    stages: [
+      {
+        id: "traveler-ledger",
+        label: "Clue 1 answer",
+        placeholder: "Enter the 8-digit ledger",
+        buttonText: "Submit clue 1",
+        answers: ["17082023"],
+        successText: "Clue 1 solved. Ready for the dice?",
+        failureText: "Those digits don't match the traveler. Try again.",
+      },
+      {
+        id: "dice-finale",
+        label: "Clue 2 answer",
+        placeholder: "Type the sacred landmark",
+        buttonText: "Submit clue 2",
+        answers: ["SAGRADA"],
+        successText: "Brilliant! Day 1 is complete.",
+        failureText: "That isn't the final roll's landmark.",
+      },
+    ],
+  },
+};
 
 const calendarContextYear = (() => {
   const now = new Date();
   const currentYear = now.getFullYear();
-  const finalDropThisYear = new Date(currentYear, 1, 14, 23, 59, 59); // Feb indices are 1
+  const finalDropThisYear = new Date(currentYear, 1, 14, 23, 59, 59);
   return now > finalDropThisYear ? currentYear + 1 : currentYear;
 })();
 
@@ -55,9 +160,41 @@ if (!localStorage.getItem(PROGRESS_KEY) && solvedDaysState.length) {
   persistSolvedDays(solvedDaysState);
 }
 
+const readStageProgress = () => {
+  const stored = localStorage.getItem(STAGE_PROGRESS_KEY);
+  if (!stored) return {};
+  try {
+    const parsed = JSON.parse(stored);
+    return typeof parsed === "object" && parsed ? parsed : {};
+  } catch {
+    return {};
+  }
+};
+
+let stageProgressState = readStageProgress();
+const writeStageProgress = () => {
+  if (!Object.keys(stageProgressState).length) {
+    localStorage.removeItem(STAGE_PROGRESS_KEY);
+    return;
+  }
+  localStorage.setItem(STAGE_PROGRESS_KEY, JSON.stringify(stageProgressState));
+};
+const getCompletedStages = (day) => stageProgressState[day] ?? 0;
+const setCompletedStages = (day, count) => {
+  stageProgressState = { ...stageProgressState, [day]: count };
+  writeStageProgress();
+};
+const clearStageProgressForDay = (day) => {
+  if (stageProgressState[day] === undefined) return;
+  const nextState = { ...stageProgressState };
+  delete nextState[day];
+  stageProgressState = nextState;
+  writeStageProgress();
+};
+
 const schedule = [
   { day: 0, label: "Rose Day", date: "Feb 7", teaser: "Cryptic charade to start the hunt", releaseAt: releaseIso(7) },
-  { day: 1, label: "Propose Day", date: "Feb 8", teaser: "Letter-perfect confession", releaseAt: releaseIso(8) },
+  { day: 1, label: "Propose Day", date: "Feb 8", teaser: "Two riddles guard tonight's promise", releaseAt: releaseIso(8) },
   { day: 2, label: "Chocolate Day", date: "Feb 9", teaser: "Coordinates in cocoa swirls", releaseAt: releaseIso(9) },
   { day: 3, label: "Teddy Day", date: "Feb 10", teaser: "Stitches hide a cozy cipher", releaseAt: releaseIso(10) },
   { day: 4, label: "Promise Day", date: "Feb 11", teaser: "Decode vows etched in constellations", releaseAt: releaseIso(11) },
@@ -65,9 +202,6 @@ const schedule = [
   { day: 6, label: "Kiss Day", date: "Feb 13", teaser: "Morse sparks hidden in lipstick prints", releaseAt: releaseIso(13) },
   { day: 7, label: "Valentine's Day", date: "Feb 14", teaser: "Finale puzzle weaving every clue", releaseAt: releaseIso(14) },
 ];
-
-const nextDrop = schedule.find((slot) => slot.day === CURRENT_DAY + 1);
-const NEXT_RELEASE = nextDrop ? nextDrop.releaseAt : releaseIso(14);
 
 const getScheduleSlot = (day) => schedule.find((slot) => slot.day === day);
 const isDayAvailable = (day, now = new Date()) => {
@@ -78,24 +212,33 @@ const isDayAvailable = (day, now = new Date()) => {
   return released && previousCleared;
 };
 
-const dayOnePuzzle = {
-  label: "Day 0 · Rose Day",
-  title: "Rose Day Cryptic",
-  hero:
-    "Your opening clue is a charade. Split the sentence into definition plus wordplay and you'll unlock the word that kicks off Valentine's week.",
-  instructions: [
-    "In cryptic clues, one half usually defines the answer while the other half explains how to build it.",
-    "Look for familiar sounds (like tabla bols) and Rose Day imagery to spot the building blocks you need.",
-  ],
-  clues: [
-    {
-      time: "Cryptic clue",
-      location: "Length: 6 letters",
-      description:
-        '“Princess Joy graces the Rose Day soiree when tabla beat picks up red–pink–white tint”',
-    },
-  ],
-  footer: "",
+const determineCurrentDay = () => {
+  for (let day = schedule.length - 1; day >= 0; day -= 1) {
+    if (isDayAvailable(day)) {
+      return day;
+    }
+  }
+
+  return 0;
+};
+
+const CURRENT_DAY = determineCurrentDay();
+
+const nextDrop = schedule.find((slot) => slot.day === CURRENT_DAY + 1);
+const NEXT_RELEASE = nextDrop ? nextDrop.releaseAt : releaseIso(14);
+
+const getPuzzleConfig = (day) => puzzles[day] ?? puzzles[0];
+const getPuzzleStages = (day) => getPuzzleConfig(day)?.stages ?? [];
+const getActiveStageInfo = (day) => {
+  const puzzle = getPuzzleConfig(day);
+  const stages = getPuzzleStages(day);
+  const completed = getCompletedStages(day);
+  return {
+    puzzle,
+    stages,
+    completed,
+    activeStage: stages[completed],
+  };
 };
 
 const puzzleHero = document.getElementById("puzzle-hero");
@@ -109,6 +252,12 @@ const heroPanel = document.querySelector(".highlight-inner");
 const highlightLocked = document.getElementById("highlight-locked");
 const highlightLockedMessage = document.getElementById("highlight-locked-message");
 const highlightCountdown = document.getElementById("highlight-countdown");
+const highlightPill = document.getElementById("highlight-pill");
+const highlightTitle = document.getElementById("highlight-title");
+const highlightDescription = document.getElementById("highlight-description");
+const highlightDropTime = document.getElementById("highlight-drop-time");
+const highlightVibe = document.getElementById("highlight-vibe");
+const highlightNext = document.getElementById("highlight-next");
 const answerForm = document.getElementById("answer-form");
 const answerInput = document.getElementById("answer-input");
 const answerFeedback = document.getElementById("answer-feedback");
@@ -122,9 +271,12 @@ const modalTitle = document.getElementById("modal-title");
 const modalBody = document.getElementById("modal-body");
 const modalClose = document.getElementById("modal-close");
 const modalConfirm = document.getElementById("modal-confirm");
+const modalPrizeLink = document.getElementById("modal-prize-link");
 const prizeForm = document.getElementById("prize-form");
 const prizeTimeInput = document.getElementById("prize-time");
 const prizeSubmit = document.getElementById("prize-submit");
+const answerLabel = document.querySelector('label[for="answer-input"]');
+const answerSubmitButton = answerForm?.querySelector('button[type="submit"]');
 
 let countdownInterval = null;
 let lockedCountdownInterval = null;
@@ -223,20 +375,43 @@ const startLockedCountdown = (releaseDate, releaseText) => {
   lockedCountdownInterval = window.setInterval(update, 1000);
 };
 
+const renderVignette = (puzzle) => {
+  if (!puzzle || !puzzle.vignette) return;
+  if (highlightPill) highlightPill.textContent = puzzle.vignette.pill ?? "Tonight's vignette";
+  if (highlightTitle) highlightTitle.textContent = puzzle.vignette.title ?? "";
+  if (highlightDescription) highlightDescription.textContent = puzzle.vignette.description ?? "";
+  if (highlightDropTime) highlightDropTime.textContent = puzzle.vignette.details?.drop ?? "12:00 AM IST";
+  if (highlightVibe) highlightVibe.textContent = puzzle.vignette.details?.vibe ?? "Rose-glow cryptic";
+  if (highlightNext) highlightNext.textContent = puzzle.vignette.details?.next ?? "Unlock the next letter";
+};
+
 const hideModal = () => {
   if (modalOverlay) modalOverlay.classList.add("hidden");
 };
 
 const openCongratsModal = () => {
   if (!modalOverlay || !modalTitle || !modalBody) return;
+  const puzzle = getPuzzleConfig(CURRENT_DAY);
+
+  prizeForm?.classList.add("hidden");
+  modalConfirm?.classList.remove("hidden");
+  modalPrizeLink?.classList.add("hidden");
+
   if (CURRENT_DAY === 0 && prizeForm && modalConfirm) {
     prizeForm.classList.remove("hidden");
     modalConfirm.classList.add("hidden");
     modalTitle.textContent = "You cracked the opening charade!";
     modalBody.textContent = "Tell us when and where to drop off your Rose Day surprise.";
+  } else if (puzzle?.prize?.link && modalPrizeLink) {
+    modalConfirm?.classList.add("hidden");
+    modalPrizeLink.classList.remove("hidden");
+    modalPrizeLink.href = puzzle.prize.link;
+    modalPrizeLink.textContent = puzzle.prize.label ?? "Claim prize";
+    modalPrizeLink.setAttribute("target", "_blank");
+    modalPrizeLink.setAttribute("rel", "noopener");
+    modalTitle.textContent = puzzle.prize.title ?? "Enjoy your prize!";
+    modalBody.textContent = puzzle.prize.body ?? "Tap below to open it.";
   } else {
-    prizeForm?.classList.add("hidden");
-    modalConfirm?.classList.remove("hidden");
     modalTitle.textContent = "Beautifully done!";
     modalBody.textContent = "The next envelope will glow at midnight. Sit tight and savor the afterglow.";
   }
@@ -256,13 +431,24 @@ prizeForm?.addEventListener("submit", (event) => {
   hideModal();
 });
 
+const updateAnswerUi = () => {
+  if (!answerForm || puzzleSolved()) return;
+  const { activeStage } = getActiveStageInfo(CURRENT_DAY);
+  if (!activeStage) return;
+  if (answerLabel) answerLabel.textContent = activeStage.label || "Secret word";
+  if (answerInput) answerInput.placeholder = activeStage.placeholder || "Type your final answer";
+  if (answerSubmitButton) answerSubmitButton.textContent = activeStage.buttonText || "Submit";
+};
+
 const renderPuzzle = () => {
   const slot = getScheduleSlot(CURRENT_DAY);
+  const puzzle = getPuzzleConfig(CURRENT_DAY);
+  renderVignette(puzzle);
   const now = new Date();
   const available = isDayAvailable(CURRENT_DAY, now);
   const releaseDate = slot ? new Date(slot.releaseAt) : null;
 
-  puzzlePill.textContent = slot ? `Day ${slot.day} · ${slot.label}` : dayOnePuzzle.label;
+  puzzlePill.textContent = puzzle?.label || (slot ? `Day ${slot.day} · ${slot.label}` : "Daily puzzle");
 
   if (!available) {
     setPuzzleContentVisibility(false);
@@ -283,31 +469,54 @@ const renderPuzzle = () => {
 
   setPuzzleContentVisibility(true);
   setHeroVisibility(true);
-  puzzleTitle.textContent = dayOnePuzzle.title;
-  puzzleHero.textContent = dayOnePuzzle.hero;
+  puzzleTitle.textContent = puzzle?.title || "Daily puzzle";
+  if (puzzleHero) puzzleHero.textContent = puzzle?.hero || "";
 
   instructionList.innerHTML = "";
-  dayOnePuzzle.instructions.forEach((step) => {
+  (puzzle?.instructions ?? []).forEach((step) => {
     const li = document.createElement("li");
     li.textContent = step;
     instructionList.appendChild(li);
   });
 
   clueGrid.innerHTML = "";
-  dayOnePuzzle.clues.forEach((clue) => {
+  (puzzle?.clues ?? []).forEach((clue, clueIndex) => {
     const card = document.createElement("article");
     card.className = "clue-card";
+    const clueText = (clue.description || "").replace(/\n/g, "<br/>");
+    const clueId = clue.id ?? `clue-${CURRENT_DAY}-${clueIndex}`;
+    const showHintButton = clue.hint
+      ? `<button class="clue-hint-toggle" type="button" data-clue-id="${clueId}">Show hint</button>`
+      : "";
+    const hintBlock = clue.hint
+      ? `<p class="clue-hint hidden" data-clue-id="${clueId}"><strong>Hint:</strong> ${clue.hint}</p>`
+      : "";
     card.innerHTML = `
       <div class="clue-meta">
         <span>${clue.time}</span>
         <span>${clue.location}</span>
       </div>
-      <p>${clue.description}</p>
+      <p>${clueText}</p>
+      ${showHintButton}
+      ${hintBlock}
     `;
     clueGrid.appendChild(card);
   });
 
-  puzzleFooter.textContent = dayOnePuzzle.footer;
+  const hintButtons = clueGrid.querySelectorAll(".clue-hint-toggle");
+  hintButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const clueId = button.getAttribute("data-clue-id");
+      if (!clueId) return;
+      const hint = clueGrid.querySelector(`.clue-hint[data-clue-id="${clueId}"]`);
+      if (!hint) return;
+      const isHidden = hint.classList.toggle("hidden");
+      button.textContent = isHidden ? "Show hint" : "Hide hint";
+    });
+  });
+
+  puzzleFooter.textContent = puzzle?.footer || "";
+  updateAnswerUi();
 };
 
 const renderSchedule = () => {
@@ -321,7 +530,6 @@ const renderSchedule = () => {
     const available = released && previousCleared;
     const unlocked = hasSolvedDay(slot.day);
     const showContent = available || unlocked;
-    const live = available && !unlocked && slot.day === CURRENT_DAY;
     const card = document.createElement("article");
     const cardStateClass = showContent ? (unlocked ? " solved" : " live") : " locked";
     card.className = `schedule-card${cardStateClass}`;
@@ -375,14 +583,24 @@ const describeCountdown = (ms) => {
 };
 
 const checkSolvedState = () => {
+  const available = isDayAvailable(CURRENT_DAY);
+  if (!available) {
+    answerForm?.classList.add("hidden");
+    solvedPanel?.classList.add("hidden");
+    stopCountdown();
+    return;
+  }
+
   if (puzzleSolved()) {
-    answerForm.classList.add("hidden");
-    solvedPanel.classList.remove("hidden");
+    answerForm?.classList.add("hidden");
+    solvedPanel?.classList.remove("hidden");
+    clearStageProgressForDay(CURRENT_DAY);
     startCountdown();
   } else {
-    answerForm.classList.remove("hidden");
-    solvedPanel.classList.add("hidden");
+    answerForm?.classList.remove("hidden");
+    solvedPanel?.classList.add("hidden");
     stopCountdown();
+    updateAnswerUi();
   }
 };
 
@@ -426,27 +644,47 @@ const stopCountdown = () => {
 
 answerForm.addEventListener("submit", (event) => {
   event.preventDefault();
+  if (puzzleSolved() || !isDayAvailable(CURRENT_DAY)) return;
+  const { activeStage } = getActiveStageInfo(CURRENT_DAY);
+  if (!activeStage) return;
+
   const rawGuess = answerInput.value || "";
   const guess = normalizeAnswerValue(rawGuess);
   if (!guess) {
     answerFeedback.textContent = "Need at least one letter before we can check.";
     answerFeedback.style.color = "var(--text-muted)";
-    logEvent("puzzle_attempt", { result: "empty", day: CURRENT_DAY });
+    logEvent("puzzle_attempt", { result: "empty", day: CURRENT_DAY, stage: activeStage.id });
     return;
   }
 
-  if (guess === NORMALIZED_ANSWER) {
-    answerFeedback.textContent = "Perfect! Countdown unlocked below.";
+  const acceptableAnswers = (Array.isArray(activeStage.answers) ? activeStage.answers : [activeStage.answers])
+    .filter(Boolean)
+    .map((value) => normalizeAnswerValue(value));
+
+  if (acceptableAnswers.includes(guess)) {
+    const previousCompleted = getCompletedStages(CURRENT_DAY);
+    const nextCompleted = previousCompleted + 1;
+    setCompletedStages(CURRENT_DAY, nextCompleted);
+    answerInput.value = "";
+    answerFeedback.textContent = activeStage.successText || "Clue solved. Keep going.";
     answerFeedback.style.color = "var(--success)";
-    markDaySolved(CURRENT_DAY);
-    logEvent("puzzle_solved", { day: CURRENT_DAY });
-    checkSolvedState();
-    renderSchedule();
-    openCongratsModal();
+    logEvent("puzzle_stage_solved", { day: CURRENT_DAY, stage: activeStage.id, attempt: rawGuess });
+
+    const totalStages = getPuzzleStages(CURRENT_DAY).length;
+    if (nextCompleted >= totalStages) {
+      clearStageProgressForDay(CURRENT_DAY);
+      markDaySolved(CURRENT_DAY);
+      logEvent("puzzle_solved", { day: CURRENT_DAY });
+      checkSolvedState();
+      renderSchedule();
+      openCongratsModal();
+    } else {
+      updateAnswerUi();
+    }
   } else {
-    answerFeedback.textContent = "Not the word we're chasing. Reorder the letters and retry.";
+    answerFeedback.textContent = activeStage.failureText || "Not the word we're chasing. Reorder the letters and retry.";
     answerFeedback.style.color = "var(--danger)";
-    logEvent("puzzle_attempt", { result: "incorrect", guess: rawGuess, day: CURRENT_DAY });
+    logEvent("puzzle_attempt", { result: "incorrect", guess: rawGuess, day: CURRENT_DAY, stage: activeStage.id });
   }
 });
 

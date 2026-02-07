@@ -169,7 +169,7 @@ body::before {
   margin-top: 0.6rem;
   font-size: 0.9rem;
   letter-spacing: 0.35em;
-  color: var(--yellow);
+  color: var(--rose-red);
 }
 
 .highlight-list {
@@ -355,6 +355,36 @@ input:focus {
 
 .clue-card strong {
   color: var(--rose-red);
+}
+
+.clue-hint-toggle {
+  margin-top: 0.8rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  background: rgba(255, 228, 94, 0.25);
+  color: var(--text-strong);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  cursor: pointer;
+  border: none;
+}
+
+.clue-hint {
+  margin-top: 0.6rem;
+  padding: 0.6rem 0.9rem;
+  border-radius: 12px;
+  background: rgba(255, 228, 94, 0.22);
+  color: var(--text-strong);
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+}
+
+.clue-hint.hidden {
+  display: none;
 }
 
 .answer-stack {
@@ -544,7 +574,8 @@ input:focus {
 }
 
 .status.live {
-  color: var(--yellow);
+  color: var(--amber);
+  text-shadow: 0 0 8px rgba(255, 180, 64, 0.55);
 }
 
 .status.solved {
@@ -625,6 +656,14 @@ code {
 .modal-confirm {
   width: 100%;
   margin-top: 1.25rem;
+}
+
+.modal-prize {
+  display: inline-flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 1rem;
+  text-decoration: none;
 }
 
 .prize-form {
