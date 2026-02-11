@@ -6,6 +6,89 @@ const STORAGE_KEYS = {
 const PROGRESS_KEY = "golden_threads_progress";
 const STAGE_PROGRESS_KEY = "golden_threads_stage_progress";
 
+const createStorageLayer = () => {
+  const memoryStore = {};
+  const memory = {
+    type: "memory",
+    get: (key) => (key in memoryStore ? memoryStore[key] : null),
+    set: (key, value) => {
+      memoryStore[key] = value;
+      return true;
+    },
+    remove: (key) => {
+      delete memoryStore[key];
+    },
+  };
+
+  const cookie = {
+    type: "cookie",
+    get: (key) => {
+      if (typeof document === "undefined") return null;
+      const match = document.cookie.match(new RegExp(`(?:^|; )${key}=([^;]*)`));
+      return match ? decodeURIComponent(match[1]) : null;
+    },
+    set: (key, value) => {
+      if (typeof document === "undefined") return false;
+      try {
+        document.cookie = `${encodeURIComponent(key)}=${encodeURIComponent(value)}; path=/; max-age=31536000; SameSite=Lax`;
+        return true;
+      } catch {
+        return false;
+      }
+    },
+    remove: (key) => {
+      if (typeof document === "undefined") return;
+      try {
+        document.cookie = `${encodeURIComponent(key)}=; path=/; max-age=0; SameSite=Lax`;
+      } catch {
+        /* ignore */
+      }
+    },
+  };
+
+  const local = {
+    type: "localStorage",
+    get: (key) => {
+      try {
+        return localStorage.getItem(key);
+      } catch {
+        return null;
+      }
+    },
+    set: (key, value) => {
+      try {
+        localStorage.setItem(key, value);
+        return true;
+      } catch {
+        return false;
+      }
+    },
+    remove: (key) => {
+      try {
+        localStorage.removeItem(key);
+      } catch {
+        /* ignore */
+      }
+    },
+  };
+
+  try {
+    const testKey = "__golden_threads_storage_test__";
+    localStorage.setItem(testKey, "1");
+    localStorage.removeItem(testKey);
+    return local;
+  } catch {
+    const cookieTestKey = "__golden_threads_cookie_test__";
+    if (cookie.set(cookieTestKey, "1") && cookie.get(cookieTestKey) === "1") {
+      cookie.remove(cookieTestKey);
+      return cookie;
+    }
+    return memory;
+  }
+};
+
+const storage = createStorageLayer();
+
 const normalizeAnswerValue = (value) =>
   value ? value.trim().replace(/\s+/g, "").toUpperCase() : "";
 
@@ -276,7 +359,7 @@ const releaseIso = (calendarDay) =>
   `${calendarContextYear}-02-${String(calendarDay).padStart(2, "0")}T00:00:00+05:30`;
 
 const readSolvedDays = () => {
-  const stored = localStorage.getItem(PROGRESS_KEY);
+  const stored = storage.get(PROGRESS_KEY);
   if (stored) {
     try {
       return JSON.parse(stored);
@@ -284,7 +367,7 @@ const readSolvedDays = () => {
       // ignore parse errors
     }
   }
-  if (localStorage.getItem(STORAGE_KEYS.solved) === "true") {
+  if (storage.get(STORAGE_KEYS.solved) === "true") {
     return [0];
   }
   return [];
@@ -294,8 +377,8 @@ let solvedDaysState = readSolvedDays();
 const persistSolvedDays = (days) => {
   const unique = Array.from(new Set(days)).sort((a, b) => a - b);
   solvedDaysState = unique;
-  localStorage.setItem(PROGRESS_KEY, JSON.stringify(unique));
-  localStorage.removeItem(STORAGE_KEYS.solved);
+  storage.set(PROGRESS_KEY, JSON.stringify(unique));
+  storage.remove(STORAGE_KEYS.solved);
 };
 const hasSolvedDay = (day) => solvedDaysState.includes(day);
 const markDaySolved = (day) => {
@@ -304,12 +387,12 @@ const markDaySolved = (day) => {
   }
 };
 
-if (!localStorage.getItem(PROGRESS_KEY) && solvedDaysState.length) {
+if (!storage.get(PROGRESS_KEY) && solvedDaysState.length) {
   persistSolvedDays(solvedDaysState);
 }
 
 const readStageProgress = () => {
-  const stored = localStorage.getItem(STAGE_PROGRESS_KEY);
+  const stored = storage.get(STAGE_PROGRESS_KEY);
   if (!stored) return {};
   try {
     const parsed = JSON.parse(stored);
@@ -322,10 +405,10 @@ const readStageProgress = () => {
 let stageProgressState = readStageProgress();
 const writeStageProgress = () => {
   if (!Object.keys(stageProgressState).length) {
-    localStorage.removeItem(STAGE_PROGRESS_KEY);
+    storage.remove(STAGE_PROGRESS_KEY);
     return;
   }
-  localStorage.setItem(STAGE_PROGRESS_KEY, JSON.stringify(stageProgressState));
+  storage.set(STAGE_PROGRESS_KEY, JSON.stringify(stageProgressState));
 };
 const getCompletedStages = (day) => stageProgressState[day] ?? 0;
 const setCompletedStages = (day, count) => {
@@ -437,18 +520,26 @@ let countdownInterval = null;
 let lockedCountdownInterval = null;
 
 const getDeviceId = () => {
-  let deviceId = localStorage.getItem(STORAGE_KEYS.device);
+  let deviceId = storage.get(STORAGE_KEYS.device);
   if (!deviceId) {
     deviceId = typeof crypto !== "undefined" && "randomUUID" in crypto ? crypto.randomUUID() : `device-${Date.now()}-${Math.random()}`;
-    localStorage.setItem(STORAGE_KEYS.device, deviceId);
+    storage.set(STORAGE_KEYS.device, deviceId);
   }
   return deviceId;
 };
 
 const DEVICE_ID = getDeviceId();
 
+const MAX_LOG_ENTRIES = 200;
+
 const logEvent = (event, payload = {}) => {
-  const existing = JSON.parse(localStorage.getItem(STORAGE_KEYS.log) ?? "[]");
+  let existing;
+  try {
+    existing = JSON.parse(storage.get(STORAGE_KEYS.log) ?? "[]");
+    if (!Array.isArray(existing)) existing = [];
+  } catch {
+    existing = [];
+  }
   const entry = {
     id: typeof crypto !== "undefined" && "randomUUID" in crypto ? crypto.randomUUID() : `${Date.now()}-${Math.random()}`,
     event,
@@ -457,12 +548,19 @@ const logEvent = (event, payload = {}) => {
     deviceId: DEVICE_ID,
   };
   existing.push(entry);
-  localStorage.setItem(STORAGE_KEYS.log, JSON.stringify(existing));
+  if (existing.length > MAX_LOG_ENTRIES) {
+    existing = existing.slice(existing.length - MAX_LOG_ENTRIES);
+  }
+  const serialized = JSON.stringify(existing);
+  if (!storage.set(STORAGE_KEYS.log, serialized)) {
+    // storage unavailable—drop logs to keep puzzles functional
+    existing = [];
+  }
   window.valentineLog = {
     entries: existing,
     dump: () => existing,
     clear: () => {
-      localStorage.removeItem(STORAGE_KEYS.log);
+      storage.remove(STORAGE_KEYS.log);
       window.valentineLog = undefined;
     },
   };
