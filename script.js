@@ -370,10 +370,16 @@ const determineCurrentDay = () => {
   return 0;
 };
 
-const CURRENT_DAY = determineCurrentDay();
-
-const nextDrop = schedule.find((slot) => slot.day === CURRENT_DAY + 1);
-const NEXT_RELEASE = nextDrop ? nextDrop.releaseAt : releaseIso(14);
+let currentDay = determineCurrentDay();
+const computeNextRelease = (day) => {
+  const nextDrop = schedule.find((slot) => slot.day === day + 1);
+  return nextDrop ? nextDrop.releaseAt : releaseIso(14);
+};
+let nextRelease = computeNextRelease(currentDay);
+const refreshDayContext = () => {
+  currentDay = determineCurrentDay();
+  nextRelease = computeNextRelease(currentDay);
+};
 
 const getPuzzleConfig = (day) => puzzles[day] ?? puzzles[0];
 const getPuzzleStages = (day) => getPuzzleConfig(day)?.stages ?? [];
@@ -462,7 +468,7 @@ const logEvent = (event, payload = {}) => {
   };
 };
 
-const puzzleSolved = () => hasSolvedDay(CURRENT_DAY);
+const puzzleSolved = () => hasSolvedDay(currentDay);
 
 const setPuzzleContentVisibility = (visible) => {
   instructionsBlock?.classList.toggle("hidden", !visible);
@@ -522,15 +528,22 @@ const hideModal = () => {
   if (modalOverlay) modalOverlay.classList.add("hidden");
 };
 
-const openCongratsModal = () => {
+const openCongratsModal = (day = currentDay) => {
   if (!modalOverlay || !modalTitle || !modalBody) return;
-  const puzzle = getPuzzleConfig(CURRENT_DAY);
+  const puzzle = getPuzzleConfig(day);
 
   prizeForm?.classList.add("hidden");
   modalConfirm?.classList.remove("hidden");
   modalPrizeLink?.classList.add("hidden");
+  if (prizeForm) {
+    if (day === 0) {
+      prizeForm.dataset.day = String(day);
+    } else {
+      delete prizeForm.dataset.day;
+    }
+  }
 
-  if (CURRENT_DAY === 0 && prizeForm && modalConfirm) {
+  if (day === 0 && prizeForm && modalConfirm) {
     prizeForm.classList.remove("hidden");
     modalConfirm.classList.add("hidden");
     modalTitle.textContent = "You cracked the opening charade!";
@@ -559,14 +572,15 @@ prizeForm?.addEventListener("submit", (event) => {
   if (!prizeTimeInput) return;
   const time = prizeTimeInput.value;
   const location = prizeForm.querySelector('input[name="prize-location"]:checked')?.value;
-  logEvent("prize_preferences", { day: CURRENT_DAY, time, location });
-  localStorage.setItem("golden_threads_prize_pref_day0", JSON.stringify({ time, location }));
+  const prizeDay = Number(prizeForm.dataset.day ?? currentDay);
+  logEvent("prize_preferences", { day: prizeDay, time, location });
+  localStorage.setItem(`golden_threads_prize_pref_day${prizeDay}`, JSON.stringify({ time, location }));
   hideModal();
 });
 
 const updateAnswerUi = () => {
   if (!answerForm || puzzleSolved()) return;
-  const { activeStage } = getActiveStageInfo(CURRENT_DAY);
+  const { activeStage } = getActiveStageInfo(currentDay);
   if (!activeStage) return;
   if (answerLabel) answerLabel.textContent = activeStage.label || "Secret word";
   if (answerInput) answerInput.placeholder = activeStage.placeholder || "Type your final answer";
@@ -574,11 +588,11 @@ const updateAnswerUi = () => {
 };
 
 const renderPuzzle = () => {
-  const slot = getScheduleSlot(CURRENT_DAY);
-  const puzzle = getPuzzleConfig(CURRENT_DAY);
+  const slot = getScheduleSlot(currentDay);
+  const puzzle = getPuzzleConfig(currentDay);
   renderVignette(puzzle);
   const now = new Date();
-  const available = isDayAvailable(CURRENT_DAY, now);
+  const available = isDayAvailable(currentDay, now);
   const releaseDate = slot ? new Date(slot.releaseAt) : null;
 
   puzzlePill.textContent = puzzle?.label || (slot ? `Day ${slot.day} · ${slot.label}` : "Daily puzzle");
@@ -631,7 +645,7 @@ const renderPuzzle = () => {
     const card = document.createElement("article");
     card.className = "clue-card";
     const clueText = (clue.description || "").replace(/\n/g, "<br/>");
-    const clueId = clue.id ?? `clue-${CURRENT_DAY}-${clueIndex}`;
+    const clueId = clue.id ?? `clue-${currentDay}-${clueIndex}`;
     const showHintButton = clue.hint
       ? `<button class="clue-hint-toggle" type="button" data-clue-id="${clueId}">Show hint</button>`
       : "";
@@ -730,7 +744,7 @@ const describeCountdown = (ms) => {
 };
 
 const checkSolvedState = () => {
-  const available = isDayAvailable(CURRENT_DAY);
+  const available = isDayAvailable(currentDay);
   if (!available) {
     answerForm?.classList.add("hidden");
     solvedPanel?.classList.add("hidden");
@@ -741,7 +755,7 @@ const checkSolvedState = () => {
   if (puzzleSolved()) {
     answerForm?.classList.add("hidden");
     solvedPanel?.classList.remove("hidden");
-    clearStageProgressForDay(CURRENT_DAY);
+    clearStageProgressForDay(currentDay);
     startCountdown();
   } else {
     answerForm?.classList.remove("hidden");
@@ -753,7 +767,7 @@ const checkSolvedState = () => {
 
 const startCountdown = () => {
   if (!timerText || !headlineTimerText) return;
-  const releaseDate = new Date(NEXT_RELEASE);
+  const releaseDate = new Date(nextRelease);
   const updateTimer = () => {
     const diff = releaseDate - Date.now();
     const formatted =
@@ -791,8 +805,8 @@ const stopCountdown = () => {
 
 answerForm.addEventListener("submit", (event) => {
   event.preventDefault();
-  if (puzzleSolved() || !isDayAvailable(CURRENT_DAY)) return;
-  const { activeStage } = getActiveStageInfo(CURRENT_DAY);
+  if (puzzleSolved() || !isDayAvailable(currentDay)) return;
+  const { activeStage } = getActiveStageInfo(currentDay);
   if (!activeStage) return;
 
   const rawGuess = answerInput.value || "";
@@ -800,7 +814,7 @@ answerForm.addEventListener("submit", (event) => {
   if (!guess) {
     answerFeedback.textContent = "Need at least one letter before we can check.";
     answerFeedback.style.color = "var(--text-muted)";
-    logEvent("puzzle_attempt", { result: "empty", day: CURRENT_DAY, stage: activeStage.id });
+    logEvent("puzzle_attempt", { result: "empty", day: currentDay, stage: activeStage.id });
     return;
   }
 
@@ -809,29 +823,32 @@ answerForm.addEventListener("submit", (event) => {
     .map((value) => normalizeAnswerValue(value));
 
   if (acceptableAnswers.includes(guess)) {
-    const previousCompleted = getCompletedStages(CURRENT_DAY);
+    const solvedDay = currentDay;
+    const previousCompleted = getCompletedStages(solvedDay);
     const nextCompleted = previousCompleted + 1;
-    setCompletedStages(CURRENT_DAY, nextCompleted);
+    setCompletedStages(solvedDay, nextCompleted);
     answerInput.value = "";
     answerFeedback.textContent = activeStage.successText || "Clue solved. Keep going.";
     answerFeedback.style.color = "var(--success)";
-    logEvent("puzzle_stage_solved", { day: CURRENT_DAY, stage: activeStage.id, attempt: rawGuess });
+    logEvent("puzzle_stage_solved", { day: solvedDay, stage: activeStage.id, attempt: rawGuess });
 
-    const totalStages = getPuzzleStages(CURRENT_DAY).length;
+    const totalStages = getPuzzleStages(solvedDay).length;
     if (nextCompleted >= totalStages) {
-      clearStageProgressForDay(CURRENT_DAY);
-      markDaySolved(CURRENT_DAY);
-      logEvent("puzzle_solved", { day: CURRENT_DAY });
-      checkSolvedState();
+      clearStageProgressForDay(solvedDay);
+      markDaySolved(solvedDay);
+      logEvent("puzzle_solved", { day: solvedDay });
+      openCongratsModal(solvedDay);
+      refreshDayContext();
+      renderPuzzle();
       renderSchedule();
-      openCongratsModal();
+      checkSolvedState();
     } else {
       updateAnswerUi();
     }
   } else {
     answerFeedback.textContent = activeStage.failureText || "Not the word we're chasing. Reorder the letters and retry.";
     answerFeedback.style.color = "var(--danger)";
-    logEvent("puzzle_attempt", { result: "incorrect", guess: rawGuess, day: CURRENT_DAY, stage: activeStage.id });
+    logEvent("puzzle_attempt", { result: "incorrect", guess: rawGuess, day: currentDay, stage: activeStage.id });
   }
 });
 
