@@ -94,6 +94,20 @@ body::before {
   text-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
 }
 
+.hero-highlight {
+  margin: 1rem auto 0;
+  max-width: 720px;
+  padding: 0.9rem 1.1rem;
+  border-radius: 999px;
+  background: linear-gradient(120deg, rgba(255, 228, 94, 0.35), rgba(255, 159, 191, 0.4));
+  color: var(--text-strong);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-align: center;
+  box-shadow: 0 15px 35px rgba(255, 159, 191, 0.3);
+}
+
 .grid {
   display: grid;
   gap: 2rem;

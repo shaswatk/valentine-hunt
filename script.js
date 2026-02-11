@@ -114,6 +114,155 @@ Who has not repaid his debt.`,
       },
     ],
   },
+  2: {
+    label: "Day 2 · Chocolate Day",
+    title: "First confession detour",
+    hero:
+      "Return to the confession outside the neighborhood playground—the swings creaking, a mixtape humming from your portable speaker, and chalk dust on your shoes. Rebuild those keepsakes to prove you remember how that moment unfolded.",
+    heroHighlight: "A steady stream of tears replaced with a magical smile, under this roof and a starry sky.",
+    instructions: [
+      "The volunteer rota pinned to the playground fence still lists the codenames you created—trace the star-marked initials in sequence.",
+      "The swing-speed gauge from that night has six etched settings; translate the numbers using the mixtape cipher you kept secret.",
+      "The promise note hidden beneath the slide whispers its answer down the left margin.",
+    ],
+    clues: [
+      {
+        time: "Keepsake 1",
+        location: "Volunteer rota",
+        description:
+          "A faded clipboard shows the playground watch order you invented for privacy: “Starling shift – 22:00”, “Aurora shift – 22:15”, “Nightjar shift – 22:30”, “Torchbearer shift – 22:45”, “Rivulet shift – 23:00”, “Orbit shift – 23:15”. Only the initials carry heart stamps. Follow the stamps from top to bottom.",
+      },
+      {
+        time: "Keepsake 2",
+        location: "Swing-speed gauge",
+        description:
+          "The swing-control box still has the six etched notches you carved: “19 · 1 · 14 · 20 · 18 · 15”. Your own handwriting says, “Tune with the mixtape cipher, not with actual RPM.”",
+      },
+      {
+        time: "Keepsake 3",
+        location: "Promise note",
+        description:
+          "The letter you tucked under the slide reads: “Soft gravel kept us grounded. Around the slide we timed our breaths. No laughter carried past midnight. Tuning the speaker to Side B calmed us. Rusty chains kept the beat. Outside the playground the world paused.” Only the gold-traced margin letters survived, along with a penciled note: “A steady stream of tears replaced with a magical smile, under this roof and a starry sky.”",
+      },
+    ],
+    footer: "Name the six-letter keepsake born from that confession and the countdown to Day 3 begins.",
+    vignette: {
+      pill: "Tonight's vignette",
+      title: "First confession playback",
+      description:
+        "Relive the midnight confession outside the playground. The mix insert, chalk map, and gum-wrapper vow still align on one keepsake word.",
+      details: {
+        drop: "12:00 AM IST",
+        vibe: "Crafty confession trail",
+        next: "Confirm the keepsake to unlock Day 3",
+      },
+    },
+    stages: [
+      {
+        id: "first-confession",
+        label: "Keepsake word",
+        placeholder: "Enter the six-letter memory",
+        buttonText: "Submit keepsake",
+        answers: ["SANTRO"],
+        successText: "Yes! The confession keepsake lives on.",
+        failureText: "That doesn't match the keepsakes. Try another memory.",
+      },
+    ],
+  },
+  3: {
+    label: "Day 3 · Teddy Day",
+    title: "Mahjong midnight",
+    hero:
+      "Tonight's challenge isn't about splitting two direct clues. It's about reliving the night you promised to meet in the middle—reading the same mahjong scorecard, sharing wok-fire timing duties, and decoding the lantern cipher outside the restaurant where compromise became second nature.",
+    instructions: [
+      "In the mahjong log, the only tiles that mattered were the balanced pairs—the circled ones whisper the first letters you need.",
+      "The wok-timer durations hum the same tune as your alphabetic counting game.",
+      "Follow the lantern glow diagonally across the foyer; twin glyphs always echo their sound.",
+    ],
+    clues: [
+      {
+        time: "Artifact 1",
+        location: "Mahjong scorecard",
+        description:
+          "The scorecard from your compromise night lists melds and points: Beryl blossom chow (8), Histeria dragon pair (5), Tulip run (3), Indigo coin pung (6), Late-market chow (7). Only the even-point melds were circled at the table.",
+      },
+      {
+        time: "Artifact 2",
+        location: "Wok timer log",
+        description:
+          "Chef Ming handed you the firing schedule: Chili breath 23s, Oil swirl 15s, Chow toss 14s. “You’re the only ones who ever converted my seconds into letters,” he wrote on the margin.",
+      },
+      {
+        time: "Artifact 3",
+        location: "Lantern cipher",
+        description:
+          "A sketch of the neon lanterns shows only two globes still lit: one at the northwest corner labeled “Gingko” and another at the southeast exit with the same glyph. The caption reads, “Trace the glow NW→SE; duplicated lanterns echo their character twice.”",
+      },
+    ],
+    footer: "Combine the initials, timer letters, and lantern instruction to reveal the restaurant that fixed everything.",
+    vignette: {
+      pill: "Tonight's vignette",
+      title: "Mahjong neon oath",
+      description:
+        "That compromise night felt like a puzzle: you alternated turns on the tiles, traded wok timing so nobody burned dinner, and stepped outside to pledge commitment under the neon lanterns. Solve the trio again to recall the restaurant.",
+      details: {
+        drop: "12:00 AM IST",
+        vibe: "Mahjong + wok + lantern cipher",
+        next: "Decode the neon to approach Day 4",
+      },
+    },
+    stages: [
+      {
+        id: "compromise-restaurant",
+        label: "Restaurant name",
+        placeholder: "Type the neon sign",
+        buttonText: "Submit restaurant",
+        answers: ["BIGWONG", "BIG WONG"],
+        successText: "Mahjong solved, neon glowing—Day 3 complete.",
+        failureText: "Those letters don't match the ledger. Recombine the artifacts.",
+      },
+    ],
+  },
+  4: {
+    label: "Day 4 · Promise Day",
+    title: "Life-saving vow",
+    hero:
+      "A midnight road trip nearly derailed everything, until a roadside doctor left you a single cryptic clue. Solve it to recall the illness you promised to guard against forever.",
+    instructions: [
+      "Cryptic clues hide both a definition and wordplay—spot both halves before committing.",
+      "The lab slip's heading read “Spelling mistakes mixed in plain sight.”",
+    ],
+    clues: [
+      {
+        time: "Keepsake 1",
+        location: "Roadside doctor's clue",
+        description: `“Angel by my side, clean mixed Asian broth, the fever's culprit (7).”`,
+      },
+    ],
+    footer: "Name the illness you kept off the road and Day 5's countdown will appear.",
+    vignette: {
+      pill: "Tonight's vignette",
+      title: "Promise of care",
+      description:
+        "On that reckless trip, the roadside doctor offered one cryptic line about the disease you swore you'd never ignore again.",
+      details: {
+        drop: "12:00 AM IST",
+        vibe: "Single cryptic fever clue",
+        next: "Protect the vow to reach Day 5",
+      },
+    },
+    stages: [
+      {
+        id: "promise-diagnosis",
+        label: "Saved illness",
+        placeholder: "Enter the hidden diagnosis",
+        buttonText: "Submit diagnosis",
+        answers: ["TYPHOID"],
+        successText: "Promise honored. Rest before Day 5.",
+        failureText: "That isn't the illness the keepsakes call out.",
+      },
+    ],
+  },
 };
 
 const calendarContextYear = (() => {
@@ -194,9 +343,9 @@ const clearStageProgressForDay = (day) => {
 const schedule = [
   { day: 0, label: "Rose Day", date: "Feb 7", teaser: "Cryptic charade to start the hunt", releaseAt: releaseIso(7) },
   { day: 1, label: "Propose Day", date: "Feb 8", teaser: "Two riddles guard tonight's promise", releaseAt: releaseIso(8) },
-  { day: 2, label: "Chocolate Day", date: "Feb 9", teaser: "Coordinates in cocoa swirls", releaseAt: releaseIso(9) },
-  { day: 3, label: "Teddy Day", date: "Feb 10", teaser: "Stitches hide a cozy cipher", releaseAt: releaseIso(10) },
-  { day: 4, label: "Promise Day", date: "Feb 11", teaser: "Decode vows etched in constellations", releaseAt: releaseIso(11) },
+  { day: 2, label: "Chocolate Day", date: "Feb 9", teaser: "Keepsakes hide the first confession word", releaseAt: releaseIso(9) },
+  { day: 3, label: "Teddy Day", date: "Feb 10", teaser: "Compromise clues from a neon booth", releaseAt: releaseIso(10) },
+  { day: 4, label: "Promise Day", date: "Feb 11", teaser: "Roadside rescue keeps the vow alive", releaseAt: releaseIso(11) },
   { day: 5, label: "Hug Day", date: "Feb 12", teaser: "A logic puzzle full of embrace diagrams", releaseAt: releaseIso(12) },
   { day: 6, label: "Kiss Day", date: "Feb 13", teaser: "Morse sparks hidden in lipstick prints", releaseAt: releaseIso(13) },
   { day: 7, label: "Valentine's Day", date: "Feb 14", teaser: "Finale puzzle weaving every clue", releaseAt: releaseIso(14) },
@@ -241,6 +390,7 @@ const getActiveStageInfo = (day) => {
 };
 
 const puzzleHero = document.getElementById("puzzle-hero");
+const puzzleHeroHighlight = document.getElementById("puzzle-hero-highlight");
 const puzzleTitle = document.getElementById("puzzle-title");
 const puzzlePill = document.getElementById("puzzle-pill");
 const instructionList = document.getElementById("instruction-list");
@@ -440,6 +590,11 @@ const renderPuzzle = () => {
       highlightLockedMessage.textContent = "This vignette unlocks with the first clue. Track the countdown below.";
     }
     puzzleTitle.textContent = slot ? `${slot.label} unlocks soon` : "Locked";
+    if (puzzleHero) puzzleHero.textContent = "";
+    if (puzzleHeroHighlight) {
+      puzzleHeroHighlight.textContent = "";
+      puzzleHeroHighlight.classList.add("hidden");
+    }
     const releaseText = releaseDate
       ? releaseDate.toLocaleString(undefined, { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" })
       : "the right time";
@@ -454,6 +609,15 @@ const renderPuzzle = () => {
   setHeroVisibility(true);
   puzzleTitle.textContent = puzzle?.title || "Daily puzzle";
   if (puzzleHero) puzzleHero.textContent = puzzle?.hero || "";
+  if (puzzleHeroHighlight) {
+    if (puzzle?.heroHighlight) {
+      puzzleHeroHighlight.textContent = puzzle.heroHighlight;
+      puzzleHeroHighlight.classList.remove("hidden");
+    } else {
+      puzzleHeroHighlight.textContent = "";
+      puzzleHeroHighlight.classList.add("hidden");
+    }
+  }
 
   instructionList.innerHTML = "";
   (puzzle?.instructions ?? []).forEach((step) => {
